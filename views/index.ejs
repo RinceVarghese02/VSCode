@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.5.0/remixicon.css"
+        integrity="sha512-6p+GTq7fjTHD/sdFPWHaFoALKeWOU9f9MPBoPnvJEWBkGS4PKVVbCpMps6IXnTiXghFbxlgDE8QRHc3MU91lJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>VS Code</title>
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: "Andale Mono", monospace;
+
+    }
+
+    .main {
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+    }
+
+    .left-icon-section {
+        height: 100%;
+        padding: 8px 7px;
+        background-color: rgb(58, 54, 54);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        color: rgb(187, 181, 181);
+        font-size: 30px;
+    }
+
+    .left-icon-section .top-icon-section {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+    }
+
+    .left-icon-section .bottom-icon-section {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+    }
+
+    .left-icon-section i {
+        cursor: pointer;
+    }
+
+    .left-files-section {
+        height: 100%;
+        width: 250px;
+        background: #474747;
+    }
+
+    .left-files-section .explorer {
+        color: white;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .top-files-tab {
+        height: 40px;
+        width: 100%;
+        background-color: #474747;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 10px 0 0;
+        color: white;
+    }
+
+    .file-name {
+        color: white;
+        height: 100%;
+        display: inline-flex;
+        align-items: center;
+        padding: 0 20px;
+        font-size: 9px;
+        background-color: #2c2b2b;
+    }
+
+    .run-split {
+        display: flex;
+        gap: 10px;
+        font-size: 18px;
+    }
+
+    .text-area {
+        height: calc(100% - 40px);
+        width: 100%;
+        background-color: #2c2b2b;
+    }
+
+    .tabs-text {
+        height: 100%;
+        width: 100%;
+    }
+
+    .files-folders-dropdown {
+        cursor: pointer;
+        display: flex;
+        color: white;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 7px;
+    }
+
+    .files-folders-dropdown h3 {
+        overflow: hidden;
+        width: 65%;
+    }
+
+    .left-files-section .dropdown {
+        color: white;
+        padding-left: 20px;
+    }
+
+    a {
+        text-decoration: none;
+        color: white;
+    }
+</style>
+
+<script>
+
+    var countfi = 0;
+    var countfo = 0;
+    var countex = 0;
+    var countdr = 0;
+    function file() {
+        var fileinp = document.querySelector('#file');
+        if (countfi == 0) {
+            fileinp.style.display = 'block';
+            countfi = 1;
+        } else {
+            fileinp.style.display = 'none';
+            countfi = 0;
+        }
+    }
+    function folder() {
+        var folderinp = document.querySelector('#folder');
+
+        if (countfo == 0) {
+            folderinp.style.display = 'block';
+            countfo = 1;
+        } else {
+            folderinp.style.display = 'none';
+            countfo = 0;
+        }
+    }
+
+    function explorer() {
+        var expinp = document.querySelector('#left-files-section');
+
+        if (countex == 0) {
+            expinp.style.display = 'block';
+            countex = 1;
+        } else {
+            expinp.style.display = 'none';
+            countex = 0;
+        }
+    }
+    function filesandfolders() {
+        var dropinp = document.querySelector('.dropdown');
+
+        if (countdr == 0) {
+            dropinp.style.display = 'block';
+            countdr = 1;
+        } else {
+            dropinp.style.display = 'none';
+            countdr = 0;
+        }
+    }
+
+
+
+</script>
+
+<body>
+    <div class="main">
+        <div class="left-icon-section">
+            <div id="opensidebar" class="top-icon-section">
+
+                <i onclick="explorer()" class="ri-folder-4-line"></i>
+                <i class="ri-search-line"></i>
+                <i class="ri-git-branch-line"></i>
+                <i class="ri-play-large-line"></i>
+                <i class="ri-external-link-line"></i>
+            </div>
+            <div class="bottom-icon-section">
+                <i class="ri-account-circle-line"></i>
+                <i class="ri-settings-5-line"></i>
+            </div>
+        </div>
+        <div id="left-files-section" class="left-files-section" style="display: block;">
+            <div class="explorer">
+                <span>EXPLORER</span>
+                <i class="ri-more-2-line"></i>
+            </div>
+            <div class="files-folders-dropdown">
+                <i class="ri-arrow-down-s-line"></i>
+                <h3 onclick="filesandfolders()">ProjectName</h3>
+                <i onclick="file()" class="ri-file-add-line" style="font-size: large;"></i>
+                <i onclick="folder()" class="ri-folder-add-line" style="font-size: large;"></i>
+            </div>
+            <div class="dropdown" style="display: 'block';">
+                <div>
+                    <form action="/filedata" method="post">
+                        <input type="text" placeholder="Create New File" id="file" name="filename"
+                            style="display: none; width:100%">
+                    </form>
+                    <form action="/folderdata" method="post">
+                        <input type="text" placeholder="Create New Folder" id="folder" name="foldername"
+                            style="display: none;z-index:10; width:100%;">
+                    </form>
+                    <% filefolder.forEach((item)=>{%>
+                        <div style="display: flex;margin-bottom:4px;justify-content:space-between">
+                            <h3>
+                                <%if(item.isfile==true){%>
+                                    <i class="ri-file-line"></i>
+                                    <a href="/openfile/<%=item.filefoldername%>"><%=item.filefoldername%></a>
+                                        <%}else{%>
+                                            <i class="ri-folder-line"></i>
+                                            <%=item.filefoldername%>
+                                                <%}%>
+                            </h3>
+                            <div>
+                                <a href='/delete/<%=item.filefoldername%>/<%=item.isfile%>'><i
+                                        class="ri-delete-bin-line"></i></a>
+                                <i class="ri-edit-line"></i>
+                            </div>
+                        </div>
+                        <%}) %>
+                </div>
+            </div>
+        </div>
+
+        <%if(fileopen){%>
+            <div class="tabs-text">
+                <form action="/savefile/<%=filename%>" method="post" style="height: 100%;">
+                <div class="top-files-tab">
+                    <div class="file-name">
+                        <h2><%=filename%><i class="ri-close-line"></i></h2>
+                    </div>
+                    <div class="run-split">
+                        <button type="submit" style="background: none;border:none;font-size:large;color:white;cursor:pointer;"><i class="ri-play-large-line"></i></button>
+                        <i class="ri-layout-column-line"></i>
+                        <i class="ri-more-2-line"></i>
+                    </div>
+                </div>
+                <div class="text-area">
+                    <textarea
+                        style="height:calc(100% - 4px);width:100%;background:rgb(41, 41, 41);border:none;outline:none;font-size:20px;color:white;" name="data"><%=data%></textarea>
+                </div>
+            </form>
+            </div>
+            <%}else{%>
+                <div style="height:100%;width:100%;background:#2C2C32">
+                    <img src="/images/vscodeimage.png" style="height:99%;width:100%;">
+                </div>
+            <%}%>
+    </div>
+
+</body>
+
+</html>
